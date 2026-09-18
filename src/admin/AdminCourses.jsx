@@ -48,7 +48,7 @@ const AdminCourses = ({ user }) => {
     myForm.append("price", price);
     myForm.append("createdBy", createdBy);
     myForm.append("duration", duration);
-    myForm.append("image", image);
+    formData.append("image", imageFile);
     myForm.append("language",language);
     myForm.append("oldprice",oldprice);
     myForm.append("lessons",lessons);
