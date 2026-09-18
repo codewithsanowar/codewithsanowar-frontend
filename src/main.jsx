@@ -6,7 +6,7 @@ import { UserContextProvider } from './context/UserContext.jsx'
 import { CourseContextProvider } from './context/CourseContext.jsx'
 
 
-export const server = "https://server-codewithsanowar-1.onrender.com";
+export const server = "https://server-codewithsanowar-2.onrender.com";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
