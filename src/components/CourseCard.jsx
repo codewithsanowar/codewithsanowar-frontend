@@ -11,6 +11,9 @@ const CourseCard = ({ course }) => {
   const navigate = useNavigate();
 
   const { fetchCourses } = CourseData();
+  const imageUrl = course.image
+    ? `${server}/${String(course.image).replace(/\\/g, "/").replace(/^\/+/, "")}`
+    : "";
 
   const deleteHandler = async (id) => {
     if (confirm("Are you sure you want to delete this course")) {
@@ -36,7 +39,7 @@ const CourseCard = ({ course }) => {
       {/* Image */}
       <div className="relative">
         <img
-          src={`${server}/${course.image}`}
+          src={imageUrl}
           alt=""
           className="w-full h-auto object-cover"
         />

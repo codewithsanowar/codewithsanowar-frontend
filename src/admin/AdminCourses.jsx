@@ -53,7 +53,12 @@ const AdminCourses = ({ user }) => {
     myForm.append("price", price);
     myForm.append("createdBy", createdBy);
     myForm.append("duration", duration);
-    myForm.append("image", file);
+    if (!image) {
+      toast.error("Please select a course image");
+      setBtnLoading(false);
+      return;
+    }
+    myForm.append("image", image);
     myForm.append("language",language);
     myForm.append("oldprice",oldprice);
     myForm.append("lessons",lessons);

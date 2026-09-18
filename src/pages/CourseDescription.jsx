@@ -27,6 +27,10 @@ const CourseDescription = ({ user }) => {
   // ✅ NEW: chapters + which one is open
   const [previewChapters, setPreviewChapters] = useState([]);
   const [openChapter, setOpenChapter] = useState(null);
+  const mediaUrl = (filePath) =>
+    filePath
+      ? `${server}/${String(filePath).replace(/\\/g, "/").replace(/^\/+/, "")}`
+      : "";
 
   useEffect(() => {
     fetchCourse(params.id);
@@ -204,7 +208,7 @@ const CourseDescription = ({ user }) => {
                   >
                     <div className="relative">
                       <img
-                        src={`${server}/${course.image}`}
+                        src={mediaUrl(course.image)}
                         alt=""
                         className="w-full h-auto object-cover"
                       />
@@ -222,7 +226,7 @@ const CourseDescription = ({ user }) => {
                     </div>
 
                     <div className="p-4 sm:p-5">
-                      {!(user && user.subscription.includes(course._id)) && (
+                      {!(user && user.subscription?.includes(course._id)) && (
                         <div className="flex items-center gap-3 mt-2">
                           <h2 className="text-3xl  font-bold">
                             ₹{course.price}
@@ -378,7 +382,10 @@ const CourseDescription = ({ user }) => {
                     </button>
 
                     <video
-                      src={previewLecture.video?.url || `${server}/${previewLecture.video}`}
+                      src={
+                        previewLecture.video?.url ||
+                        mediaUrl(previewLecture.video)
+                      }
                       controls
                       autoPlay
                       controlsList="nodownload noremoteplayback"
