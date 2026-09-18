@@ -6,10 +6,13 @@ import toast, { Toaster } from "react-hot-toast";
 export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const getErrorMessage = (error, fallback) =>
+    error.response?.data?.message || error.message || fallback;
 
   async function loginUser(email, password, navigate, fetchMyCourse) {
     setBtnLoading(true);
@@ -29,7 +32,7 @@ export const UserContextProvider = ({ children }) => {
     } catch (error) {
       setIsAuth(false);
       setBtnLoading(false);
-      toast.error(error.response.data.message);
+      toast.error(getErrorMessage(error, "Unable to login"));
     }
   }
 
@@ -50,7 +53,7 @@ export const UserContextProvider = ({ children }) => {
       navigate("/verify");
     } catch (error) {
       setBtnLoading(false);
-      toast.error(error.response.data.message);
+      toast.error(getErrorMessage(error, "Unable to register"));
     }
   }
 
@@ -65,10 +68,10 @@ export const UserContextProvider = ({ children }) => {
 
       toast.success(data.message);
       navigate("/login");
-      localStorage.clear();
+      localStorage.removeItem("activationToken");
        setBtnLoading(false);
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(getErrorMessage(error, "Invalid verification code"));
       setBtnLoading(false);
     }
   }

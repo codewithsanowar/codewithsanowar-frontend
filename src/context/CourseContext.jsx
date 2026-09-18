@@ -30,6 +30,11 @@ export const CourseContextProvider = ({ children }) => {
     }
 
     async function fetchMyCourse() {
+        if (!localStorage.getItem("token")) {
+            setMyCourse([]);
+            return;
+        }
+
         try {
             const {data} = await axios.get(`${server}/api/mycourse`,{
                 headers: {
@@ -37,9 +42,9 @@ export const CourseContextProvider = ({ children }) => {
                 }
             });
 
-            setMyCourse(data.courses)
-        } catch (error) {
-            console.log(error);
+            setMyCourse(data.courses || [])
+        } catch {
+            setMyCourse([]);
         }
     }
 

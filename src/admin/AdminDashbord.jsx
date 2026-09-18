@@ -7,9 +7,6 @@ import { server } from "../main";
 const AdminDashbord = ({user}) => {
 
    const navigate = useNavigate()
-
-   if(user && user.role !== "admin") return navigate("/")
-
    const [stats, setStats] = useState({});
 
    async function fetchStats() {
@@ -28,6 +25,14 @@ const AdminDashbord = ({user}) => {
    useEffect(()=>{
     fetchStats();
    }, []);
+
+   useEffect(() => {
+    if (user && user.role !== "admin") {
+      navigate("/");
+    }
+   }, [user, navigate]);
+
+   if (user && user.role !== "admin") return null;
 
   return (
     <Layout>

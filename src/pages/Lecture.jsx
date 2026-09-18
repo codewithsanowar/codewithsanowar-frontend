@@ -5,7 +5,7 @@ import html2canvas from "html2canvas";
 import { server } from "../main";
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
-import { Play, Award, Download, X } from "lucide-react";
+import { Play, Award, X } from "lucide-react";
 import { SquareCheck, ChevronDown, ChevronUp } from "lucide-react";
 import { CiCirclePlus } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -53,14 +53,6 @@ const Lecture = ({ user }) => {
   const [btnLoading, setBtnLoading] = useState(false);
 
   // subscription check
-  if (
-    user &&
-    user.role !== "admin" &&
-    !user.subscription?.some((id) => id.toString() === params.id)
-  ) {
-    return navigate("/");
-  }
-
   // ================= FETCH =================
 
   const fetchLectures = async () => {
@@ -323,7 +315,25 @@ const Lecture = ({ user }) => {
     fetchChapters();
     fetchProgress();
     fetchCourseData();
-  }, []);
+  }, [params.id]);
+
+  useEffect(() => {
+    if (
+      user &&
+      user.role !== "admin" &&
+      !user.subscription?.some((id) => id.toString() === params.id)
+    ) {
+      navigate("/");
+    }
+  }, [user, params.id, navigate]);
+
+  if (
+    user &&
+    user.role !== "admin" &&
+    !user.subscription?.some((id) => id.toString() === params.id)
+  ) {
+    return null;
+  }
 
   return (
     <>
@@ -494,7 +504,7 @@ const Lecture = ({ user }) => {
               )}
 
               <div className="space-y-3">
-                {chapters.map((ch, i) => {
+                {chapters.map((ch) => {
                   const chapterLectures = getLecturesByChapter(ch._id);
 
                   const completedCount = chapterLectures.filter((lec) =>

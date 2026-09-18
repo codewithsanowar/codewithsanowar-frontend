@@ -3,15 +3,12 @@ import {
   FaHome,
   FaBookOpen,
   FaInfoCircle,
-  FaUsers,
-  FaPhoneAlt,
-  FaLayerGroup,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
 import { GrCode } from "react-icons/gr";
 import { CiSettings } from "react-icons/ci";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserData } from "../context/UserContext";
 
 
@@ -23,8 +20,6 @@ const Navbar = ({ isAuth }) => {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const profileRef = useRef();
-  const navigate = useNavigate();
-
   // Close dropdown
   useEffect(() => {
     function handleClickOutside(e) {

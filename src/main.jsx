@@ -6,7 +6,9 @@ import { UserContextProvider } from './context/UserContext.jsx'
 import { CourseContextProvider } from './context/CourseContext.jsx'
 
 
-export const server = "https://server-codewithsanowar-2.onrender.com";
+const configuredServer =
+  import.meta.env.VITE_API_URL || "https://server-codewithsanowar-2.onrender.com";
+export const server = configuredServer.replace(/\/+$/, "");
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

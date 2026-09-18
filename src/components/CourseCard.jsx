@@ -24,7 +24,9 @@ const CourseCard = ({ course }) => {
         toast.success(data.message);
         fetchCourses();
       } catch (error) {
-        toast.error(error.response.data.message);
+        toast.error(
+          error.response?.data?.message || error.message || "Unable to delete course",
+        );
       }
     }
   };
@@ -92,7 +94,7 @@ const CourseCard = ({ course }) => {
             <>
               {user && user.role !== "admin" ? (
                 <>
-                  {user.subscription.includes(course._id) ? (
+                  {user.subscription?.includes(course._id) ? (
                     <button
                       onClick={() => navigate(`/course/${course._id}`)}
                       className="w-full bg-gray-200 hover:bg-gray-300 py-2.5 rounded-md text-lg sm:text-sm font-semibold transition"

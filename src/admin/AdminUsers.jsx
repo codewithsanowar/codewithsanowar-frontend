@@ -7,8 +7,6 @@ import toast from "react-hot-toast";
 
 const AdminUsers = ({ user }) => {
   const navigate = useNavigate();
-  if (user && user.role !== "admin") return navigate("/");
-
   const [users, setUsers] = useState([]);
   const [loadingId, setLoadingId] = useState(null);
 
@@ -29,6 +27,14 @@ const AdminUsers = ({ user }) => {
   useEffect(() => {
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    if (user && user.role !== "admin") {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  if (user && user.role !== "admin") return null;
 
   // 🔥 UPDATE ROLE FUNCTION
   const updateRole = async (id) => {
@@ -133,7 +139,7 @@ const AdminUsers = ({ user }) => {
       {/* 📱 Mobile UI */}
       <div className="md:hidden space-y-4">
         {users &&
-          users.map((e, i) => (
+          users.map((e, _i) => (
             <div key={e._id} className="bg-white p-4 rounded-xl shadow-md">
               <div className="flex justify-between items-center">
                 <h2 className="font-semibold">{e.name}</h2>

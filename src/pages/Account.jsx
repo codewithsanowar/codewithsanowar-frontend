@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FaTachometerAlt } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { UserData } from "../context/UserContext.jsx";

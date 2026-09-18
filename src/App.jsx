@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Login from "./pages/auth/Login";
-import Register from "./pages//auth/Register";
+import Register from "./pages/auth/Register";
 import Verify from "./pages/auth/Verify";
 import Courses from "./pages/Courses";
 import Footer from "./components/Footer";
@@ -39,6 +39,7 @@ const App = () => {
             />
             <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/course" element={<Navigate to="/courses" replace />} />
             <Route
               path="/account"
               element={isAuth ? <Account user={user} /> : <Login />}
@@ -70,10 +71,6 @@ const App = () => {
             <Route
               path="/admin/users"
               element={isAuth ? <AdminUsers user={user} /> : <Login />}
-            />
-            <Route
-              path="/about"
-              element={isAuth ? <About user={user} /> : <Login />}
             />
             <Route
               path="/about"

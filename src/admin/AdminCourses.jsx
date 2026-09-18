@@ -10,8 +10,6 @@ import { server } from "../main";
 
 const AdminCourses = ({ user }) => {
   const navigate = useNavigate();
-  if (user && user.role !== "admin") return navigate("/");
-
   const { courses, fetchCourses } = CourseData();
 
   const [open, setOpen] = useState(false);
@@ -31,14 +29,21 @@ const AdminCourses = ({ user }) => {
   const [lessons, setLessons] = useState("");
 
   useEffect(() => {
-    fetchCourses && fetchCourses();
+    fetchCourses();
   }, []);
+
+  useEffect(() => {
+    if (user && user.role !== "admin") {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  if (user && user.role !== "admin") return null;
 
   // dummy submit (connect your API here)
   const handleSubmit = async(e) => {
     e.preventDefault();
     setBtnLoading(true);
-    setOpen(false);
 
     const myForm = new FormData()
 
@@ -60,8 +65,7 @@ const AdminCourses = ({ user }) => {
             },
         });
 
-        toast.success(data.message)
-        setBtnLoading(false);
+        toast.success(data.message);
         await fetchCourses();
         setTitle("");
         setDescription("");
@@ -74,8 +78,11 @@ const AdminCourses = ({ user }) => {
         setLanguage("");
         setOldprice("");
         setPrice("");
+        setOpen(false);
     } catch (error) {
-        toast.error(error.response.data.message)
+        toast.error(error.response?.data?.message || "Unable to create course");
+    } finally {
+        setBtnLoading(false);
     }
   };
 
@@ -176,8 +183,9 @@ const AdminCourses = ({ user }) => {
 
               {/* Duration */}
               <input
-                type="text"
-                placeholder="Duration (e.g. 10 hours)"
+                type="number"
+                min="1"
+                placeholder="Duration (in weeks)"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-black"

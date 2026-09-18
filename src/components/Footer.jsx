@@ -1,5 +1,4 @@
 import React from "react";
-import { Zap } from "lucide-react";
 import { GrCode } from "react-icons/gr";
 
 const Footer = () => {
