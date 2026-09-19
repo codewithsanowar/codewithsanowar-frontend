@@ -29,10 +29,6 @@ const AdminCourses = ({ user }) => {
   const [lessons, setLessons] = useState("");
 
   useEffect(() => {
-    fetchCourses();
-  }, []);
-
-  useEffect(() => {
     if (user && user.role !== "admin") {
       navigate("/");
     }
