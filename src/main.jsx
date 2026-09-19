@@ -5,9 +5,8 @@ import App from './App.jsx'
 import { UserContextProvider } from './context/UserContext.jsx'
 import { CourseContextProvider } from './context/CourseContext.jsx'
 
-
-const configuredServer =
-  import.meta.env.VITE_API_URL || "https://server-codewithsanowar-2.onrender.com";
+// ✅ Fix: Fallback to an empty string or default backend URL
+const configuredServer = import.meta.env.VITE_API_URL || "http://localhost:5000";
 export const server = configuredServer.replace(/\/+$/, "");
 
 createRoot(document.getElementById('root')).render(
@@ -16,6 +15,6 @@ createRoot(document.getElementById('root')).render(
       <CourseContextProvider>
         <App />
       </CourseContextProvider>
-  </UserContextProvider>
+    </UserContextProvider>
   </StrictMode>,
 );
