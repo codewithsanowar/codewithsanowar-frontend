@@ -6,7 +6,7 @@ import { UserContextProvider } from './context/UserContext.jsx'
 import { CourseContextProvider } from './context/CourseContext.jsx'
 
 // ✅ Fix: Fallback to an empty string or default backend URL
-const configuredServer = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const configuredServer = import.meta.env.VITE_API_URL || "";
 export const server = configuredServer.replace(/\/+$/, "");
 
 createRoot(document.getElementById('root')).render(
