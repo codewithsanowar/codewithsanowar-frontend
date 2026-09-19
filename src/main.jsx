@@ -7,7 +7,7 @@ import { CourseContextProvider } from './context/CourseContext.jsx'
 
 
 const configuredServer =
-  import.meta.env.VITE_API_URL || "localhost:5000";
+  import.meta.env.VITE_API_URL || "https://server-codewithsanowar-2.onrender.com";
 export const server = configuredServer.replace(/\/+$/, "");
 
 createRoot(document.getElementById('root')).render(
