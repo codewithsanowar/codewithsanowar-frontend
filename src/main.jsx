@@ -6,7 +6,7 @@ import { UserContextProvider } from './context/UserContext.jsx'
 import { CourseContextProvider } from './context/CourseContext.jsx'
 
 // ✅ Fix: Fallback to an empty string or default backend URL
-const configuredServer = import.meta.env.VITE_API_URL || "";
+const configuredServer = import.meta.env.VITE_API_URL || "https://server-codewithsanowar-2.onrender.com";
 export const server = configuredServer.replace(/\/+$/, "");
 
 createRoot(document.getElementById('root')).render(
